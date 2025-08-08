@@ -1,0 +1,5 @@
+any time you change your index.html run:
+
+git add .
+git commit -m "Update page"
+git push
