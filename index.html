@@ -36,7 +36,7 @@
         <a href="#pricing" class="hover:text-indigo-600">Pricing</a>
         <a href="#faq" class="hover:text-indigo-600">FAQ</a>
       </nav>
-      <a href="#cta" class="inline-flex items-center px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700">Try it free</a>
+      <a href="#signup" class="inline-flex items-center px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700">Try it free</a>
     </div>
   </header>
 
@@ -51,10 +51,10 @@
           </h1>
           <p class="mt-4 text-lg text-slate-600">
             Upload your transactions and get a personalized plan to cut recurring costs —
-            conservative savings estimates, step‑by‑step actions, and zero fluff.
+            conservative savings estimates, step-by-step actions, and zero fluff.
           </p>
           <div class="mt-6 flex flex-wrap gap-3">
-            <a id="cta" href="#pricing" class="px-6 py-3 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-700">Get Started Free</a>
+            <a href="#signup" class="px-6 py-3 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-700">Get Started Free</a>
             <a href="#how" class="px-6 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 font-medium hover:bg-slate-50">See how it works</a>
           </div>
           <div class="mt-6 flex items-center gap-4 text-sm text-slate-500">
@@ -144,4 +144,83 @@
   <!-- How it works -->
   <section id="how" class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-10 item
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <img
+          src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1600&auto=format&fit=crop"
+          alt="How it works"
+          class="rounded-2xl shadow-xl border border-slate-200 fade-up"
+          loading="lazy"
+        />
+        <div class="fade-up delay-1">
+          <h2 class="text-3xl font-bold">Three steps to your savings plan</h2>
+          <ol class="mt-5 space-y-4 text-slate-700">
+            <li><span class="font-semibold text-slate-900">1) Upload</span> a CSV of your recent transactions.</li>
+            <li><span class="font-semibold text-slate-900">2) Analyze</span> with AI to find recurring cuts first.</li>
+            <li><span class="font-semibold text-slate-900">3) Act</span> using short checklists and scripts.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Signup section starts -->
+  <section id="signup" class="py-20 bg-gradient-to-b from-white to-slate-100">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold">Get the Inflation Survival Checklist</h2>
+      <p class="mt-2 text-slate-600">Join the waitlist and receive 25 proven ways to cut bills this month.</p>
+
+      <form id="fs-form" action="https://formspree.io/f/YOUR_ENDPOINT" method="POST"
+            class="mt-8 grid sm:grid-cols-[1fr_auto] gap-3" onsubmit="return submitFormspree(event)">
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+        <input id="fs-email" type="email" name="email" required placeholder="you@example.com"
+               class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        <button id="fs-btn" class="px-6 py-3 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-700">
+          Send me the checklist
+        </button>
+      </form>
+
+      <div id="fs-success" class="mt-3 text-sm text-emerald-600 hidden">Thanks! Check your inbox for the checklist.</div>
+      <div id="fs-fail" class="mt-3 text-sm text-rose-600 hidden">Hmm, something went wrong. Please try again.</div>
+    </div>
+  </section>
+  <!-- Signup section ends -->
+
+  <footer class="bg-slate-900 text-white py-8 text-center">
+    <p class="text-sm">&copy; 2025 ABCDeyz. All rights reserved.</p>
+  </footer>
+
+<script>
+  function isValidEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)}
+
+  async function submitFormspree(e){
+    e.preventDefault();
+    const form = document.getElementById('fs-form');
+    const email = document.getElementById('fs-email');
+    const btn = document.getElementById('fs-btn');
+    if(!isValidEmail(email.value.trim())){ email.focus(); return false; }
+
+    btn.disabled = true; btn.textContent = 'Sending...';
+    try{
+      const res = await fetch(form.action, {
+        method:'POST',
+        headers:{'Accept':'application/json'},
+        body:new FormData(form)
+      });
+      if(res.ok){
+        form.reset();
+        document.getElementById('fs-success').classList.remove('hidden');
+        document.getElementById('fs-fail').classList.add('hidden');
+      }else{
+        document.getElementById('fs-fail').classList.remove('hidden');
+        document.getElementById('fs-success').classList.add('hidden');
+      }
+    }catch(_){
+      document.getElementById('fs-fail').classList.remove('hidden');
+    }finally{
+      btn.disabled = false; btn.textContent = 'Send me the checklist';
+    }
+    return false;
+  }
+</script>
+</body>
+</html>
