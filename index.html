@@ -169,16 +169,25 @@
       <h2 class="text-3xl font-bold">Get the Inflation Survival Checklist</h2>
       <p class="mt-2 text-slate-600">Join the waitlist and receive 25 proven ways to cut bills this month.</p>
 
-      <form id="fs-form" action="https://formspree.io/f/xwpqaoev" method="POST"
-            class="mt-8 grid sm:grid-cols-[1fr_auto] gap-3" onsubmit="return submitFormspree(event)">
-        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
-		<input type="hidden" name="_redirect" value="https://abcdeyz.com/thanks.html">
-        <input id="fs-email" type="email" name="email" required placeholder="you@example.com"
-               class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-        <button id="fs-btn" class="px-6 py-3 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-700">
-          Send me the checklist
-        </button>
-      </form>
+      <form id="fs-form" action="https://formspree.io/f/YOUR_ENDPOINT" method="POST"
+      class="mt-8 grid sm:grid-cols-[1fr_auto] gap-3" onsubmit="return submitFormspree(event)">
+  
+  <!-- Honeypot (spam protection) -->
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+  
+  <!-- Redirect after success -->
+  <input type="hidden" name="_redirect" value="https://abcdeyz.com/thanks.html">
+  
+  <!-- Email input -->
+  <input id="fs-email" type="email" name="email" required placeholder="you@example.com"
+         class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+  
+  <!-- Submit button -->
+  <button id="fs-btn" class="px-6 py-3 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-700">
+    Send me the checklist
+  </button>
+</form>
+
 
       <div id="fs-success" class="mt-3 text-sm text-emerald-600 hidden">Thanks! Check your inbox for the checklist.</div>
       <div id="fs-fail" class="mt-3 text-sm text-rose-600 hidden">Hmm, something went wrong. Please try again.</div>
